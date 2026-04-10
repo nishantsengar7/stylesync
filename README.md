@@ -108,6 +108,23 @@ Saves a new snapshot of modified design tokens.
 
 ---
 
+## 🛠 Troubleshooting
+
+### 1. `Found lockfile missing swc dependencies` (Vercel)
+If you see this error on Vercel, it means the `package-lock.json` doesn't have the required Linux binaries.
+**Solution**: Run `npx next build` locally; Next.js will automatically patch the lockfile. Commit and push the changes.
+
+### 2. Prisma Database Errors
+If database operations fail, ensure you've pushed the schema:
+```bash
+npx prisma db push
+```
+
+### 3. Puppeteer in Serverless
+Puppeteer requires a specific setup for some serverless environments. If scraping fails in production, ensure you are using `puppeteer-core` with a compatible chrome package or set the `PUPPETEER_EXECUTABLE_PATH`.
+
+---
+
 ## 🧠 Challenges & Solutions
 **Challenge**: Normalizing inconsistent CSS values (e.g., `hex` vs `rgb` vs `hsl`) from various websites.
 **Solution**: Implemented a normalization service that converts all captured colors to a unified format and uses frequency-based heuristics to identify the primary brand colors.

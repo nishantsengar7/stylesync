@@ -1,12 +1,24 @@
 import { ScraperResponse } from '@/types';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 
 export async function scrapeWebsite(url: string): Promise<ScraperResponse> {
   let browser;
   try {
+    const isProd = process.env.NODE_ENV === 'production' || !!process.env.VERCEL_URL;
+    
+    // Configure executable path based on environment
+    // For local development on Windows, common paths are checked
+    const localChromePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+    const localEdgePath = 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe';
+
     browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: isProd ? chromium.args : ['--no-sandbox', '--disable-setuid-sandbox'],
+      defaultViewport: isProd ? chromium.defaultViewport : { width: 1280, height: 800 },
+      executablePath: isProd 
+        ? await chromium.executablePath() 
+        : localChromePath, // Default to Chrome on Windows
+      headless: isProd ? chromium.headless : true,
     });
 
     const page = await browser.newPage();

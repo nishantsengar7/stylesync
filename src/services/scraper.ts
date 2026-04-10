@@ -15,7 +15,7 @@ export async function scrapeWebsite(url: string): Promise<ScraperResponse> {
     await page.setViewport({ width: 1280, height: 800 });
     
     // Navigate with timeout
-    await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
 
     const data = await page.evaluate(() => {
       // Helper to get computed styles

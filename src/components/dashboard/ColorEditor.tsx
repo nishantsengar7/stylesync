@@ -45,7 +45,7 @@ export const ColorEditor = () => {
                 <div className="relative group overflow-hidden w-10 h-10 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm cursor-pointer">
                   <input
                     type="color"
-                    value={tokens.colors[key].startsWith('#') ? tokens.colors[key] : '#6C3EF4'}
+                    value={tokens.colors[key]?.startsWith('#') ? tokens.colors[key] : '#6C3EF4'}
                     onChange={(e) => updateColor(key, e.target.value)}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                   />

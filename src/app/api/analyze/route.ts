@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+export const dynamic = 'force-dynamic';
 import { analyzeSchema } from '@/lib/validators';
 import { scrapeWebsite } from '@/services/scraper';
 import { extractDesignTokens } from '@/services/tokenExtractor';

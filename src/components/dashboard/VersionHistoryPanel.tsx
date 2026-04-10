@@ -11,6 +11,7 @@ import { Version } from '@/types';
 export const VersionHistoryPanel = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const { url, restoreVersion, versionHistory, setVersionHistory } = useTokenStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const fetchHistory = useCallback(async () => {
     setIsLoading(true);
@@ -25,6 +26,7 @@ export const VersionHistoryPanel = ({ isOpen, onClose }: { isOpen: boolean, onCl
   }, [url, setVersionHistory]);
 
   useEffect(() => {
+    setIsMounted(true);
     if (isOpen && url) {
       fetchHistory();
     }
@@ -92,11 +94,11 @@ export const VersionHistoryPanel = ({ isOpen, onClose }: { isOpen: boolean, onCl
                          v{v.version}
                        </span>
                        <span className="text-[10px] text-zinc-400">
-                         {new Date(v.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                         {isMounted ? new Date(v.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '...'}
                        </span>
                     </div>
                     <p className="text-[10px] text-zinc-400 mb-4 font-mono truncate">
-                      Snapshot taken on {new Date(v.createdAt).toLocaleDateString()}
+                      Snapshot taken on {isMounted ? new Date(v.createdAt).toLocaleDateString() : '...'}
                     </p>
                     <button
                       onClick={() => handleRestore(v)}

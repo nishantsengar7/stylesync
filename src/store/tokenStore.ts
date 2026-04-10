@@ -44,7 +44,7 @@ export const useTokenStore = create<TokenStore>((set) => ({
         const path = `${prefix}.${key}`;
         if (state.lockedTokens[path] && state.tokens) {
           const currentTokens = state.tokens[prefix] as Record<string, unknown>;
-          (target as any)[key] = currentTokens[key];
+          (target as Record<string, unknown>)[key] = currentTokens[key];
         }
       });
     };

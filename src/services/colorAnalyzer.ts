@@ -24,7 +24,7 @@ export const classifyColors = (rawColors: string[]): ColorTokens => {
     const isGray = (color: string) => {
         const match = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
         if(!match) return false;
-        const [r, g, b] = [parseInt(match[1]), parseInt(match[1]), parseInt(match[1])];
+        const [r, g, b] = [parseInt(match[1]), parseInt(match[2]), parseInt(match[3])];
         return Math.abs(r - g) < 20 && Math.abs(g - b) < 20;
     };
 
